@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>pepexamen</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div>
+  <label>pepeMail</label>
+  <label for="mail"></label><input type="email" id="mail">
+</div>
+
+<div>
+  <label>pepeClave</label>
+  <label for="clave"></label><input type="password" id="clave">
+</div>
+
+<div>
+  <label>Pepemensaje</label>
+  <label for="msjs"></label><input type="text" id="msjs">
+</div>
+
+<button id="send">Enviar</button>
+
+
+<script>
+  let socket = new WebSocket("ws://localhost:8080/chat");
+
+    socket.onmessage = function(event) {
+        $('#msjs').append('<p>' + event.data + '</p>');
+    };
+
+    $('#send').click(function() {
+        let user = $('#name').val();
+        let msg = $('#msj').val();
+        socket.send(user + ": " + msg);
+    })
+</script>
+
+</body>
+</html>
